@@ -1,4 +1,5 @@
 import React from "react";
+import AddEntryModal from "./AddEntryModal";
 
 export default function Header() {
 
@@ -15,9 +16,9 @@ export default function Header() {
       </form> */}
 
       <div className="navbar bg-stone-700 shadow-sm">
-        <button className="btn btn-xs h-10 bg-stone-300 ml-8 sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
-          Add New Entry
-        </button>
+        {/* <button className="btn btn-xs h-10 bg-stone-300 ml-8 sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl"> */}
+          <AddEntryModal/>
+        {/* </button> */}
         <div className="flex-1">
           <a className="text-xl text-stone-300 flex justify-center">My Diary</a>
         </div>

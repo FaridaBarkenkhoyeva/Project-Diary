@@ -1,4 +1,5 @@
 import React from "react";
+import ViewEntryModal from "./ViewEntryModal";
 
 export default function EntriesList() {
   return (
@@ -29,6 +30,8 @@ export default function EntriesList() {
           <button className="btn btn-ghost">Update</button>
 
           <button className="btn btn-ghost">Delete</button>
+
+          <ViewEntryModal/>
         </li>
       </ul>
     </>
