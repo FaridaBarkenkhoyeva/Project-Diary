@@ -1,12 +1,12 @@
 import React from "react";
 
-export default function EntryCard() {
+export default function EntryCard({ title, date, imagePreviewUrl, fullText }) {
   return (
     <>
       <div className="card bg-base-100 w-full md:w-90% lg:w-90% xl:w-90% shadow-sm border-amber-100 mx-auto">
         <div className="card-body items-center text-center">
           <h2 className="card-title bg-stone-100 border-amber-100 rounded-md px-4 py-1 text-sm md:text-base lg:text-lg">
-            Title of Entry
+            {title}
           </h2>
         </div>
 
@@ -14,7 +14,7 @@ export default function EntryCard() {
           <div className="flex flex-col w-full ">
             <figure className="flex-1">
               <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                src="{imagePreviewUrl}"
                 alt="Shoes"
                 className=" h-full w-full rounded-xl object-contain"
               />
@@ -33,11 +33,9 @@ export default function EntryCard() {
           </div>
 
           <div className="w-full p-2 ">
-            <p className="text-xs md:text-sm lg:text-base">
-              {" "}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere,
-              officia. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Dicta, voluptatibus. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo, debitis!
+            <p className="text-xs md:text-sm lg:text-base"> {fullText}</p>
+            <p>
+              {date}
             </p>
           </div>
         </div>
