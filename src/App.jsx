@@ -19,7 +19,7 @@ function App() {
   // make an array for Entries
   // const entriesSorted = [{title:"", date:"", imagePreviewUrl:"", fullText:""}]
 
-  const date = new Date().toUTCString();
+  // const date = new Date().toUTCString();
   // const [(sortedEntries = entries.sort((a, b) => b.date - a.date)), setSortedEntries] = useState({ title: "", date: "", imagePreviewUrl: "", fullText: "" });
  
   
