@@ -2,19 +2,12 @@ import React from "react";
 import { useState } from "react";
 import ViewEntryModal from "./ViewEntryModal";
 import App from "./App";
+import { useAppContext } from "./context/appContext";
 
-export default function EntriesList({ entries }) {
+export default function EntriesList() {
   // const [showAddModal, setShowAddModal] = useState(false);
-  const [selectedEntry, setSelectedEntry] = useState();
-
-  function modalHandler(obj) {
-    console.log(obj);
-
-    // setShowAddModal(true);
-    setSelectedEntry(obj);
-
-    document.getElementById("my_modal_6").showModal();
-  }
+  const { entries, modalHandler } = useAppContext();
+  
   //  const getCurrentDate = new Date();
   //  const [today, setToday] = useState(getCurrentDate());
 
@@ -51,12 +44,7 @@ export default function EntriesList({ entries }) {
 
                 <button className="btn btn-ghost">Delete</button>
 
-                <button
-                  className="btn"
-                  onClick={() =>
-                    modalHandler(entry)
-                  }
-                >
+                <button className="btn" onClick={() => modalHandler(entry)}>
                   Open entry
                 </button>
 
@@ -64,12 +52,11 @@ export default function EntriesList({ entries }) {
               </li>
             ))}
           </ul>
-          
         </div>
       ) : (
         <p>No entries yet. Add your first entry here!</p>
       )}
-      <ViewEntryModal entry={selectedEntry}/>
+      <ViewEntryModal />
     </div>
   );
 }
