@@ -4,6 +4,17 @@ import ViewEntryModal from "./ViewEntryModal";
 import App from "./App";
 
 export default function EntriesList({ entries }) {
+  // const [showAddModal, setShowAddModal] = useState(false);
+  const [selectedEntry, setSelectedEntry] = useState();
+
+  function modalHandler(obj) {
+    console.log(obj);
+
+    // setShowAddModal(true);
+    setSelectedEntry(obj);
+
+    document.getElementById("my_modal_6").showModal();
+  }
   //  const getCurrentDate = new Date();
   //  const [today, setToday] = useState(getCurrentDate());
 
@@ -18,7 +29,7 @@ export default function EntriesList({ entries }) {
       {entries.length > 0 ? (
         <div>
           <ul className=" list  bg-base-100 rounded-box ml-4 mr-4 mt-12 shadow-md">
-            {entries.map((entry, index) => (
+            {entries?.map((entry, index) => (
               <li key={index} className="list-row">
                 <div>
                   <img
@@ -40,14 +51,25 @@ export default function EntriesList({ entries }) {
 
                 <button className="btn btn-ghost">Delete</button>
 
-                <ViewEntryModal entries={entries} />
+                <button
+                  className="btn"
+                  onClick={() =>
+                    modalHandler(entry)
+                  }
+                >
+                  Open entry
+                </button>
+
+                {/* <ViewEntryModal entry={entry} /> */}
               </li>
             ))}
           </ul>
+          
         </div>
       ) : (
         <p>No entries yet. Add your first entry here!</p>
       )}
+      <ViewEntryModal entry={selectedEntry}/>
     </div>
   );
 }

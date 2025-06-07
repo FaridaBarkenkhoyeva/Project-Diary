@@ -1,12 +1,14 @@
 import React from "react";
+import EntriesList from "./EntriesList";
+import ViewEntryModal from "./ViewEntryModal";
 
-export default function EntryCard({ title, date, imagePreviewUrl, fullText }) {
+export default function EntryCard({entry}) {
   return (
     <>
       <div className="card bg-base-100 w-full md:w-90% lg:w-90% xl:w-90% shadow-sm border-amber-100 mx-auto">
         <div className="card-body items-center text-center">
           <h2 className="card-title bg-stone-100 border-amber-100 rounded-md px-4 py-1 text-sm md:text-base lg:text-lg">
-            {title}
+            {entry?.title}
           </h2>
         </div>
 
@@ -14,7 +16,7 @@ export default function EntryCard({ title, date, imagePreviewUrl, fullText }) {
           <div className="flex flex-col w-full ">
             <figure className="flex-1">
               <img
-                src="{imagePreviewUrl}"
+                src={entry?.imagePreviewUrl}
                 alt="Shoes"
                 className=" h-full w-full rounded-xl object-contain"
               />
@@ -33,9 +35,9 @@ export default function EntryCard({ title, date, imagePreviewUrl, fullText }) {
           </div>
 
           <div className="w-full p-2 ">
-            <p className="text-xs md:text-sm lg:text-base"> {fullText}</p>
+            <p className="text-xs md:text-sm lg:text-base"> {entry?.fullText}</p>
             <p>
-              {date}
+              {entry?.date}
             </p>
           </div>
         </div>

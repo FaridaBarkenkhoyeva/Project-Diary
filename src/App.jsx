@@ -13,10 +13,10 @@ import ViewEntryModal from "./ViewEntryModal";
 import AddEntryModal from "./AddEntryModal";
 
 function App() {
-  const [showViewModal, setShowViewModal] = useState(false);
-  const [showAddModal, setShowAddModal] = useState(false);
+  // const [showViewModal, setShowViewModal] = useState(false);
+  // const [showAddModal, setShowAddModal] = useState(false);
   //current Entry is empty
-  const [currentEntry, setCurrentEntry] = useState(null);
+  // const [currentEntry, setCurrentEntry] = useState(null);
   // make an array for Entries
   const [entries, setEntries] = useState([
      {
