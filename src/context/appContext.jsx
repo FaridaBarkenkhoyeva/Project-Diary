@@ -3,43 +3,7 @@ import { createContext, useContext, useState } from "react";
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [entries, setEntries] = useState([
-    {
-      title: "Morning Walk in the Park",
-      date: "01/07/2025",
-      imagePreviewUrl: "https://example.com/images/park-walk.jpg",
-      fullText:
-        "Today started with a peaceful walk through the park. Birds were chirping and the sun was just rising — felt like a reset button for my mind.",
-    },
-    {
-      title: "Unexpected Rain",
-      date: "02/07/2025",
-      imagePreviewUrl: "https://example.com/images/rainy-day.jpg",
-      fullText:
-        "Got caught in the rain without an umbrella. Drenched but smiling. It reminded me to let go and just enjoy the moment.",
-    },
-    {
-      title: "Coffee with an Old Friend",
-      date: "03/07/2025",
-      imagePreviewUrl: "https://example.com/images/coffee-friends.jpg",
-      fullText:
-        "Met Sam after 3 years. Laughed over silly memories and talked about where life has taken us. Grateful for lasting friendships.",
-    },
-    {
-      title: "Bookstore Treasure",
-      date: "04/07/2025",
-      imagePreviewUrl: "https://example.com/images/bookstore.jpg",
-      fullText:
-        "Stumbled into a hidden bookstore downtown. Found a signed copy of a childhood favorite. Pure serendipity!",
-    },
-    {
-      title: "Late Night Reflections",
-      date: "05/07/2025",
-      imagePreviewUrl: "https://example.com/images/night-reflection.jpg",
-      fullText:
-        "Sat by the window watching the city lights. So many thoughts racing, but in that quiet moment, everything felt still and okay.",
-    },
-  ]);
+  const [entries, setEntries] = useState(JSON.parse(localStorage.getItem("entries") || "[]"));
   const [selectedEntry, setSelectedEntry] = useState();
   function modalHandler(obj) {
     console.log(obj);
@@ -47,8 +11,73 @@ export const AppProvider = ({ children }) => {
 
     document.getElementById("my_modal_6").showModal();
   }
+
+  //In App.js, create a function that takes new entry data (from the form) and adds it to the entries state array.
+
+  function saveToLocalStorage(newEntry) {
+    const entriesRetrieved = localStorage.getItem("entries");
+    const savedEntries = entriesRetrieved ? JSON.parse(entriesRetrieved) : [];
+
+    savedEntries.push(newEntry);
+    console.log(savedEntries);
+    localStorage.setItem("entries", JSON.stringify(savedEntries));
+    getDataFromLS();
+    
+
+  }
+
+  const [entryData, setEntryData] = useState();
+
+  const saveHandler = (e) => {
+    e.preventDefault();
+    const date = new Date().toLocaleDateString();
+    const entryImage = e.target.image.value;
+    const entryTitle = e.target.title.value;
+    const entryText = e.target.entryText.value;
+
+    if (!entryImage || !entryTitle || !date || !entryText) {
+      alert("Please fill all fields before saving.")
+      return; 
+    }
+
+    saveToLocalStorage({
+      title: e.target.title.value,
+      date,
+      imageUrl: e.target.image.value,
+      fullText: e.target.entryText.value,
+    })
+    document.getElementById("my_modal_5").close()
+
+  };
+
+  //retrieve information from ls
+  // put in entriesList
+  // append
+
+  //create a container
+  //const savedEntries = json.parse(localStorage.getItem('entries'))
+  // for each savedEntries (entry => have html return)
+
+  function getDataFromLS() {
+    const data = JSON.parse(localStorage.getItem("entries") || "[]");
+    setEntries(data)
+  }
+
   return (
-    <AppContext.Provider value={{ entries, setEntries, selectedEntry, setSelectedEntry, modalHandler }}>
+    <AppContext.Provider
+      value={{
+        entries,
+        setEntries,
+        selectedEntry,
+        setSelectedEntry,
+        modalHandler,
+        saveToLocalStorage,
+        entryData,
+        setEntryData,
+        saveHandler,
+        getDataFromLS
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
