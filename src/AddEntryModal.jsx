@@ -1,7 +1,17 @@
 import React from "react";
-import TextField from "./TextField";
+import { useAppContext } from "./context/appContext";
 
 export default function AddEntryModal() {
+  const { saveToLocalStorage, entryData, setEntryData, saveHandler } = useAppContext();
+
+  // const saveHandler = (e) => {
+  //   e.preventDefault();
+
+  //   console.log("I am saveHandler");
+  // };
+
+
+  
   return (
     <>
       <div className="">
@@ -15,10 +25,65 @@ export default function AddEntryModal() {
         <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
           <div className="modal-box">
             <div className="modal-action">
-              <TextField />
+              <form onSubmit={saveHandler}>
+                <div className="card bg-base-100 w-96 shadow-sm">
+                  {/* <figure className="px-10 pt-10">
+          <img
+            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+            alt="Shoes"
+            className="rounded-xl"
+          />
+        </figure> */}
+
+                  <label className="input ml-8">
+                    <svg
+                      className="h-[1em] opacity-50"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                    >
+                      <g
+                        strokeLinejoin="round"
+                        strokeLinecap="round"
+                        strokeWidth="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                        <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                      </g>
+                    </svg>
+                    <input
+                      type="url"
+                      name="image"
+                      className="grow"
+                      placeholder="Select image from your local computer"
+                    />
+                  </label>
+
+                  <div className="card-body items-center text-center">
+                    <input
+                      type="text"
+                      name="title"
+                      placeholder="Type Title here"
+                      className="input"
+                    />
+                    <textarea
+                      type="text"
+                      name="entryText"
+                      placeholder="Type entry text here"
+                      className="textarea textarea-md"
+                    ></textarea>
+
+                    <div className="card-actions">
+                      <button className="btn btn-primary">
+                        Save Entry
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
               <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn">Close</button>
+                <button className="btn">X</button>
               </form>
             </div>
           </div>

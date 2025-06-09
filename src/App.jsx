@@ -6,10 +6,7 @@ import Header from "./Header";
 import Title from "./Title";
 import SortFilter from "./SortFilter";
 import EntriesList from "./EntriesList";
-import TextField from "./TextField";
-import SubmitButton from "./SubmitButton";
-import ViewEntryModal from "./ViewEntryModal";
-import AddEntryModal from "./AddEntryModal";
+
 
 function App() {
   // const [showViewModal, setShowViewModal] = useState(false);
@@ -19,9 +16,12 @@ function App() {
   // make an array for Entries
   // const entriesSorted = [{title:"", date:"", imagePreviewUrl:"", fullText:""}]
 
-  const date = new Date().toUTCString();
+  // const date = new Date().toUTCString();
   // const [(sortedEntries = entries.sort((a, b) => b.date - a.date)), setSortedEntries] = useState({ title: "", date: "", imagePreviewUrl: "", fullText: "" });
  
+ 
+
+
   
   return (
     <>
@@ -31,7 +31,7 @@ function App() {
       <Title />
       <SortFilter />
       <EntriesList />
-      <SubmitButton />
+
     </>
   );
 }
