@@ -7,27 +7,14 @@ export default function Header() {
   
   return (
     <>
-      {/* <form onSubmit={onSubmitHandler}>
-        <input type="date" />
-        <input type="time" />
-        <input type="color" />
-
-        <button type="Submit"> Submit</button>
-      </form> */}
-
+      
       <div className="navbar bg-stone-700 shadow-sm">
-        {/* <button className="btn btn-xs h-10 bg-stone-300 ml-8 sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl"> */}
           <AddEntryModal/>
-        {/* </button> */}
         <div className="flex-1">
           <a className="text-xl text-stone-300 flex justify-center">My Diary</a>
         </div>
         <div className="flex gap-2">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
-          />
+          
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
