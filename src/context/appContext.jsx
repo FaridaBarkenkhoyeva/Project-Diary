@@ -1,18 +1,40 @@
 import { createContext, useContext, useState } from "react";
-
+import { v4 as uuidv4 } from "uuid";
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
+  // states
   const [entryData, setEntryData] = useState();
   const [entries, setEntries] = useState(
     JSON.parse(localStorage.getItem("entries") || "[]")
   );
   const [selectedEntry, setSelectedEntry] = useState();
+  const [idToUpdate, setIdToUpdate] = useState("");
+
+  // Funcitons
   function modalHandler(obj) {
     console.log(obj);
     setSelectedEntry(obj);
 
     document.getElementById("my_modal_6").showModal();
+  }
+
+  function updateHandler(obj) {
+    setIdToUpdate(obj.id);
+
+    // e.target.imagePreviewUrl.value = obj.imageUrl;
+    // e.target.title.value = obj.title;
+    // e.target.entryText.value = obj.fullText;
+
+    const updateForm = document.getElementById("updateForm");
+
+    document.getElementById("my_modal_5").showModal();
+
+    console.log(updateForm[0]);
+    updateForm[0].value = obj.imageUrl;
+    updateForm[1].value = obj.date;
+    updateForm[2].value = obj.title;
+    updateForm[3].value = obj.fullText;
   }
 
   //In App.js, create a function that takes new entry data (from the form) and adds it to the entries state array.
@@ -30,18 +52,47 @@ export const AppProvider = ({ children }) => {
   const saveHandler = (e) => {
     e.preventDefault();
     const date = e.target.date.value;
+    const entryImage = e.target.imagePreviewUrl.value;
+    const entryTitle = e.target.title.value;
+    const entryText = e.target.entryText.value;
+
+    if (idToUpdate != "") {
+      const tempArray = entries.filter((i) => i.id != idToUpdate);
+
+      const exists = tempArray.filter((i) => i.date == date);
+      if (exists.length > 0) {
+        alert("date already exists");
+        return;
+      }
+
+      const UpdatedArray = entries.map((i) => {
+        if (i.id == idToUpdate) {
+          i.title = entryTitle;
+          i.fullText = entryText;
+          i.imageUrl = entryImage;
+          i.date = date;
+        }
+        return i;
+      });
+
+      setIdToUpdate("");
+
+      localStorage.setItem("entries", JSON.stringify(UpdatedArray));
+      document.getElementById("my_modal_5").close();
+      getDataFromLS();
+      return;
+    }
+
+    e.target.imagePreviewUrl.value = "";
+    e.target.title.value = "";
+    e.target.entryText.value = "";
+    e.target.date.value = "";
     // const date = new Date().toLocaleDateString();
     const exists = entries.filter((i) => i.date == date);
     if (exists.length > 0) {
       alert("date already exists");
       return;
     }
-    const entryImage = e.target.imagePreviewUrl.value;
-    const entryTitle = e.target.title.value;
-    const entryText = e.target.entryText.value;
-    e.target.imagePreviewUrl.value = "";
-    e.target.title.value = "";
-    e.target.entryText.value = "";
 
     if (!entryImage || !entryTitle || !date || !entryText) {
       alert("Please fill all fields before saving.");
@@ -49,6 +100,7 @@ export const AppProvider = ({ children }) => {
     }
 
     saveToLocalStorage({
+      id: uuidv4(),
       title: entryTitle,
       date,
       imageUrl: entryImage,
@@ -97,6 +149,14 @@ export const AppProvider = ({ children }) => {
     setFilterValue("");
   };
 
+  function deleteEntry(obj) {
+     const updatedArray = entries.filter (i => i.id != obj.id)
+    localStorage.setItem("entries", JSON.stringify(updatedArray));
+    
+    getDataFromLS();
+    return;
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -120,6 +180,8 @@ export const AppProvider = ({ children }) => {
         filteredEntries,
         sortHandler,
         filterHandler,
+        updateHandler,
+        deleteEntry,
       }}
     >
       {children}

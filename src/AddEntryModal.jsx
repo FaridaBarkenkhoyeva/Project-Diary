@@ -1,6 +1,5 @@
 import React from "react";
 import { useAppContext } from "./context/appContext";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function AddEntryModal() {
@@ -19,7 +18,7 @@ export default function AddEntryModal() {
         <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
           <div className="modal-box">
             <div className="modal-action">
-              <form onSubmit={saveHandler}>
+              <form onSubmit={saveHandler} id="updateForm">
                 <div className="card bg-base-100 w-96 shadow-sm">
                   <label className="input ml-8">
                     <svg

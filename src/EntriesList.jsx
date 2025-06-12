@@ -3,7 +3,7 @@ import { useState } from "react";
 import ViewEntryModal from "./ViewEntryModal";
 import App from "./App";
 import { useAppContext } from "./context/appContext";
-
+import { v4 as uuidv4 } from 'uuid';
 export default function EntriesList() {
   const {
     entries,
@@ -18,6 +18,8 @@ export default function EntriesList() {
     filteredEntries,
     sortHandler,
     filterHandler,
+    updateHandler,
+    deleteEntry,
   } = useAppContext();
 
   return (
@@ -25,6 +27,7 @@ export default function EntriesList() {
       <h1 className="text-center mt-8 mb-4 text-xl text-stone-800">
         My Entry List
       </h1>
+      
       <div className="">
         <button
           className="btn btn-xs h-8 bg-stone-300 ml-8 sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl"
@@ -90,9 +93,9 @@ export default function EntriesList() {
                     {entry.fullText}
                   </p>
                   <p>{entry.date}</p>
-                  <button className="btn btn-ghost">Update</button>
+                  <button className="btn btn-ghost" onClick={() => updateHandler(entry)}>Update</button>
 
-                  <button className="btn btn-ghost">Delete</button>
+                  <button className="btn btn-ghost" onClick={() => deleteEntry(entry)}>Delete</button>
 
                   <button className="btn" onClick={() => modalHandler(entry)}>
                     Open entry
